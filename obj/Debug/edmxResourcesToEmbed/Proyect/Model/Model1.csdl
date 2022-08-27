@@ -1,0 +1,100 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="PruebaModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityContainer Name="PruebaEntities1" annotation:LazyLoadingEnabled="true">
+    <FunctionImport Name="insertFamily">
+      <Parameter Name="nombre" Mode="In" Type="String" />
+      <Parameter Name="usuario" Mode="In" Type="String" />
+      <Parameter Name="estado" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="insertProducts">
+      <Parameter Name="descripcion" Mode="In" Type="String" />
+      <Parameter Name="precio" Mode="In" Type="Double" />
+      <Parameter Name="saldo" Mode="In" Type="Double" />
+      <Parameter Name="fecha" Mode="In" Type="DateTime" />
+      <Parameter Name="usuario" Mode="In" Type="String" />
+      <Parameter Name="idFamilia" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <EntitySet Name="IN04" EntityType="PruebaModel.IN04" />
+    <EntitySet Name="IN05" EntityType="PruebaModel.IN05" />
+    <AssociationSet Name="IDFamilia" Association="PruebaModel.IDFamilia">
+      <End Role="IN05" EntitySet="IN05" />
+      <End Role="IN04" EntitySet="IN04" />
+    </AssociationSet>
+    <FunctionImport Name="sp_alterdiagram">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+      <Parameter Name="version" Mode="In" Type="Int32" />
+      <Parameter Name="definition" Mode="In" Type="Binary" />
+    </FunctionImport>
+    <FunctionImport Name="sp_creatediagram">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+      <Parameter Name="version" Mode="In" Type="Int32" />
+      <Parameter Name="definition" Mode="In" Type="Binary" />
+    </FunctionImport>
+    <FunctionImport Name="sp_dropdiagram">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="sp_helpdiagramdefinition" ReturnType="Collection(PruebaModel.sp_helpdiagramdefinition_Result)">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="sp_helpdiagrams" ReturnType="Collection(PruebaModel.sp_helpdiagrams_Result)">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="sp_renamediagram">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+      <Parameter Name="new_diagramname" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="sp_upgraddiagrams" />
+  </EntityContainer>
+  <EntityType Name="IN04">
+    <Key>
+      <PropertyRef Name="CodigoProducto" />
+    </Key>
+    <Property Name="CodigoProducto" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Descripcion" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Precio" Type="Double" Nullable="false" />
+    <Property Name="SaldoInventario" Type="Int32" Nullable="false" />
+    <Property Name="FechaIngreso" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="UsuarioIngreso" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="IDFamilia" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="IN05" Relationship="PruebaModel.IDFamilia" FromRole="IN04" ToRole="IN05" />
+  </EntityType>
+  <EntityType Name="IN05">
+    <Key>
+      <PropertyRef Name="IDFamilia" />
+    </Key>
+    <Property Name="IDFamilia" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="NombreFamilia" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="UsuarioIngreso" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Estado" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="IN04" Relationship="PruebaModel.IDFamilia" FromRole="IN05" ToRole="IN04" />
+  </EntityType>
+  <Association Name="IDFamilia">
+    <End Type="PruebaModel.IN05" Role="IN05" Multiplicity="1" />
+    <End Type="PruebaModel.IN04" Role="IN04" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="IN05">
+        <PropertyRef Name="IDFamilia" />
+      </Principal>
+      <Dependent Role="IN04">
+        <PropertyRef Name="IDFamilia" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <ComplexType Name="sp_helpdiagramdefinition_Result">
+    <Property Type="Int32" Name="version" Nullable="true" />
+    <Property Type="Binary" Name="definition" Nullable="true" />
+  </ComplexType>
+  <ComplexType Name="sp_helpdiagrams_Result">
+    <Property Type="String" Name="Database" Nullable="true" MaxLength="128" />
+    <Property Type="String" Name="Name" Nullable="false" MaxLength="128" />
+    <Property Type="Int32" Name="ID" Nullable="false" />
+    <Property Type="String" Name="Owner" Nullable="true" MaxLength="128" />
+    <Property Type="Int32" Name="OwnerID" Nullable="false" />
+  </ComplexType>
+</Schema>

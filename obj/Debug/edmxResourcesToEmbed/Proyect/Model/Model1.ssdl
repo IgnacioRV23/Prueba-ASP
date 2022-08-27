@@ -1,0 +1,88 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="PruebaModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="IN04">
+    <Key>
+      <PropertyRef Name="CodigoProducto" />
+    </Key>
+    <Property Name="CodigoProducto" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Descripcion" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="Precio" Type="float" Nullable="false" />
+    <Property Name="SaldoInventario" Type="int" Nullable="false" />
+    <Property Name="FechaIngreso" Type="datetime" Nullable="false" />
+    <Property Name="UsuarioIngreso" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="IDFamilia" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="IN05">
+    <Key>
+      <PropertyRef Name="IDFamilia" />
+    </Key>
+    <Property Name="IDFamilia" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="NombreFamilia" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="UsuarioIngreso" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="Estado" Type="int" Nullable="false" />
+  </EntityType>
+  <Association Name="IDFamilia">
+    <End Role="IN05" Type="Self.IN05" Multiplicity="1" />
+    <End Role="IN04" Type="Self.IN04" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="IN05">
+        <PropertyRef Name="IDFamilia" />
+      </Principal>
+      <Dependent Role="IN04">
+        <PropertyRef Name="IDFamilia" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Function Name="fn_diagramobjects" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" ReturnType="int" />
+  <Function Name="insertFamily" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="nombre" Type="varchar" Mode="In" />
+    <Parameter Name="usuario" Type="varchar" Mode="In" />
+    <Parameter Name="estado" Type="int" Mode="In" />
+  </Function>
+  <Function Name="insertProducts" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="descripcion" Type="varchar" Mode="In" />
+    <Parameter Name="precio" Type="float" Mode="In" />
+    <Parameter Name="saldo" Type="float" Mode="In" />
+    <Parameter Name="fecha" Type="datetime" Mode="In" />
+    <Parameter Name="usuario" Type="varchar" Mode="In" />
+    <Parameter Name="idFamilia" Type="int" Mode="In" />
+  </Function>
+  <Function Name="sp_alterdiagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+    <Parameter Name="owner_id" Type="int" Mode="In" />
+    <Parameter Name="version" Type="int" Mode="In" />
+    <Parameter Name="definition" Type="varbinary(max)" Mode="In" />
+  </Function>
+  <Function Name="sp_creatediagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+    <Parameter Name="owner_id" Type="int" Mode="In" />
+    <Parameter Name="version" Type="int" Mode="In" />
+    <Parameter Name="definition" Type="varbinary(max)" Mode="In" />
+  </Function>
+  <Function Name="sp_dropdiagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+    <Parameter Name="owner_id" Type="int" Mode="In" />
+  </Function>
+  <Function Name="sp_helpdiagramdefinition" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+    <Parameter Name="owner_id" Type="int" Mode="In" />
+  </Function>
+  <Function Name="sp_helpdiagrams" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+    <Parameter Name="owner_id" Type="int" Mode="In" />
+  </Function>
+  <Function Name="sp_renamediagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+    <Parameter Name="owner_id" Type="int" Mode="In" />
+    <Parameter Name="new_diagramname" Type="nvarchar" Mode="In" />
+  </Function>
+  <Function Name="sp_upgraddiagrams" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+  <EntityContainer Name="PruebaModelStoreContainer">
+    <EntitySet Name="IN04" EntityType="Self.IN04" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="IN05" EntityType="Self.IN05" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="IDFamilia" Association="Self.IDFamilia">
+      <End Role="IN05" EntitySet="IN05" />
+      <End Role="IN04" EntitySet="IN04" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

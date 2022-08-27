@@ -1,0 +1,272 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="PruebaModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="IN04">
+          <Key>
+            <PropertyRef Name="CodigoProducto" />
+          </Key>
+          <Property Name="CodigoProducto" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Descripcion" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Precio" Type="float" Nullable="false" />
+          <Property Name="SaldoInventario" Type="int" Nullable="false" />
+          <Property Name="FechaIngreso" Type="datetime" Nullable="false" />
+          <Property Name="UsuarioIngreso" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="IDFamilia" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="IN05">
+          <Key>
+            <PropertyRef Name="IDFamilia" />
+          </Key>
+          <Property Name="IDFamilia" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="NombreFamilia" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="UsuarioIngreso" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Estado" Type="int" Nullable="false" />
+        </EntityType>
+        <Association Name="IDFamilia">
+          <End Role="IN05" Type="Self.IN05" Multiplicity="1" />
+          <End Role="IN04" Type="Self.IN04" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="IN05">
+              <PropertyRef Name="IDFamilia" />
+            </Principal>
+            <Dependent Role="IN04">
+              <PropertyRef Name="IDFamilia" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Function Name="fn_diagramobjects" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" ReturnType="int" />
+        <Function Name="insertFamily" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="nombre" Type="varchar" Mode="In" />
+          <Parameter Name="usuario" Type="varchar" Mode="In" />
+          <Parameter Name="estado" Type="int" Mode="In" />
+        </Function>
+        <Function Name="insertProducts" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="descripcion" Type="varchar" Mode="In" />
+          <Parameter Name="precio" Type="float" Mode="In" />
+          <Parameter Name="saldo" Type="float" Mode="In" />
+          <Parameter Name="fecha" Type="datetime" Mode="In" />
+          <Parameter Name="usuario" Type="varchar" Mode="In" />
+          <Parameter Name="idFamilia" Type="int" Mode="In" />
+        </Function>
+        <Function Name="sp_alterdiagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+          <Parameter Name="owner_id" Type="int" Mode="In" />
+          <Parameter Name="version" Type="int" Mode="In" />
+          <Parameter Name="definition" Type="varbinary(max)" Mode="In" />
+        </Function>
+        <Function Name="sp_creatediagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+          <Parameter Name="owner_id" Type="int" Mode="In" />
+          <Parameter Name="version" Type="int" Mode="In" />
+          <Parameter Name="definition" Type="varbinary(max)" Mode="In" />
+        </Function>
+        <Function Name="sp_dropdiagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+          <Parameter Name="owner_id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="sp_helpdiagramdefinition" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+          <Parameter Name="owner_id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="sp_helpdiagrams" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+          <Parameter Name="owner_id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="sp_renamediagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+          <Parameter Name="owner_id" Type="int" Mode="In" />
+          <Parameter Name="new_diagramname" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="sp_upgraddiagrams" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <EntityContainer Name="PruebaModelStoreContainer">
+          <EntitySet Name="IN04" EntityType="Self.IN04" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="IN05" EntityType="Self.IN05" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="IDFamilia" Association="Self.IDFamilia">
+            <End Role="IN05" EntitySet="IN05" />
+            <End Role="IN04" EntitySet="IN04" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="PruebaModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="PruebaEntities1" annotation:LazyLoadingEnabled="true">
+          <FunctionImport Name="insertFamily">
+            <Parameter Name="nombre" Mode="In" Type="String" />
+            <Parameter Name="usuario" Mode="In" Type="String" />
+            <Parameter Name="estado" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="insertProducts">
+            <Parameter Name="descripcion" Mode="In" Type="String" />
+            <Parameter Name="precio" Mode="In" Type="Double" />
+            <Parameter Name="saldo" Mode="In" Type="Double" />
+            <Parameter Name="fecha" Mode="In" Type="DateTime" />
+            <Parameter Name="usuario" Mode="In" Type="String" />
+            <Parameter Name="idFamilia" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <EntitySet Name="IN04" EntityType="PruebaModel.IN04" />
+          <EntitySet Name="IN05" EntityType="PruebaModel.IN05" />
+          <AssociationSet Name="IDFamilia" Association="PruebaModel.IDFamilia">
+            <End Role="IN05" EntitySet="IN05" />
+            <End Role="IN04" EntitySet="IN04" />
+          </AssociationSet>
+          <FunctionImport Name="sp_alterdiagram">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+            <Parameter Name="version" Mode="In" Type="Int32" />
+            <Parameter Name="definition" Mode="In" Type="Binary" />
+          </FunctionImport>
+          <FunctionImport Name="sp_creatediagram">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+            <Parameter Name="version" Mode="In" Type="Int32" />
+            <Parameter Name="definition" Mode="In" Type="Binary" />
+          </FunctionImport>
+          <FunctionImport Name="sp_dropdiagram">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_helpdiagramdefinition" ReturnType="Collection(PruebaModel.sp_helpdiagramdefinition_Result)">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_helpdiagrams" ReturnType="Collection(PruebaModel.sp_helpdiagrams_Result)">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_renamediagram">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+            <Parameter Name="new_diagramname" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="sp_upgraddiagrams" />
+        </EntityContainer>
+        <EntityType Name="IN04">
+          <Key>
+            <PropertyRef Name="CodigoProducto" />
+          </Key>
+          <Property Name="CodigoProducto" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Descripcion" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Precio" Type="Double" Nullable="false" />
+          <Property Name="SaldoInventario" Type="Int32" Nullable="false" />
+          <Property Name="FechaIngreso" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="UsuarioIngreso" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="IDFamilia" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="IN05" Relationship="PruebaModel.IDFamilia" FromRole="IN04" ToRole="IN05" />
+        </EntityType>
+        <EntityType Name="IN05">
+          <Key>
+            <PropertyRef Name="IDFamilia" />
+          </Key>
+          <Property Name="IDFamilia" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="NombreFamilia" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="UsuarioIngreso" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Estado" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="IN04" Relationship="PruebaModel.IDFamilia" FromRole="IN05" ToRole="IN04" />
+        </EntityType>
+        <Association Name="IDFamilia">
+          <End Type="PruebaModel.IN05" Role="IN05" Multiplicity="1" />
+          <End Type="PruebaModel.IN04" Role="IN04" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="IN05">
+              <PropertyRef Name="IDFamilia" />
+            </Principal>
+            <Dependent Role="IN04">
+              <PropertyRef Name="IDFamilia" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <ComplexType Name="sp_helpdiagramdefinition_Result">
+          <Property Type="Int32" Name="version" Nullable="true" />
+          <Property Type="Binary" Name="definition" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="sp_helpdiagrams_Result">
+          <Property Type="String" Name="Database" Nullable="true" MaxLength="128" />
+          <Property Type="String" Name="Name" Nullable="false" MaxLength="128" />
+          <Property Type="Int32" Name="ID" Nullable="false" />
+          <Property Type="String" Name="Owner" Nullable="true" MaxLength="128" />
+          <Property Type="Int32" Name="OwnerID" Nullable="false" />
+        </ComplexType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="PruebaModelStoreContainer" CdmEntityContainer="PruebaEntities1">
+          <FunctionImportMapping FunctionImportName="insertFamily" FunctionName="PruebaModel.Store.insertFamily" />
+          <FunctionImportMapping FunctionImportName="insertProducts" FunctionName="PruebaModel.Store.insertProducts" />
+          <EntitySetMapping Name="IN04">
+            <EntityTypeMapping TypeName="PruebaModel.IN04">
+              <MappingFragment StoreEntitySet="IN04">
+                <ScalarProperty Name="IDFamilia" ColumnName="IDFamilia" />
+                <ScalarProperty Name="UsuarioIngreso" ColumnName="UsuarioIngreso" />
+                <ScalarProperty Name="FechaIngreso" ColumnName="FechaIngreso" />
+                <ScalarProperty Name="SaldoInventario" ColumnName="SaldoInventario" />
+                <ScalarProperty Name="Precio" ColumnName="Precio" />
+                <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+                <ScalarProperty Name="CodigoProducto" ColumnName="CodigoProducto" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="IN05">
+            <EntityTypeMapping TypeName="PruebaModel.IN05">
+              <MappingFragment StoreEntitySet="IN05">
+                <ScalarProperty Name="Estado" ColumnName="Estado" />
+                <ScalarProperty Name="UsuarioIngreso" ColumnName="UsuarioIngreso" />
+                <ScalarProperty Name="NombreFamilia" ColumnName="NombreFamilia" />
+                <ScalarProperty Name="IDFamilia" ColumnName="IDFamilia" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="sp_alterdiagram" FunctionName="PruebaModel.Store.sp_alterdiagram" />
+          <FunctionImportMapping FunctionImportName="sp_creatediagram" FunctionName="PruebaModel.Store.sp_creatediagram" />
+          <FunctionImportMapping FunctionImportName="sp_dropdiagram" FunctionName="PruebaModel.Store.sp_dropdiagram" />
+          <FunctionImportMapping FunctionImportName="sp_helpdiagramdefinition" FunctionName="PruebaModel.Store.sp_helpdiagramdefinition">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="PruebaModel.sp_helpdiagramdefinition_Result">
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="definition" ColumnName="definition" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_helpdiagrams" FunctionName="PruebaModel.Store.sp_helpdiagrams">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="PruebaModel.sp_helpdiagrams_Result">
+                <ScalarProperty Name="Database" ColumnName="Database" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Owner" ColumnName="Owner" />
+                <ScalarProperty Name="OwnerID" ColumnName="OwnerID" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_renamediagram" FunctionName="PruebaModel.Store.sp_renamediagram" />
+          <FunctionImportMapping FunctionImportName="sp_upgraddiagrams" FunctionName="PruebaModel.Store.sp_upgraddiagrams" />
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Ninguno" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
