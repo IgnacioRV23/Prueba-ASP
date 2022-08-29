@@ -19,6 +19,11 @@ namespace VentaProductos.Proyect.Forms
                 var data = context.IN04.ToList();
                 gridProductos.DataSource = data;
                 gridProductos.DataBind();
+
+                //Se realiza un query que seleciona la columna estado de la tabla IN05, para cargarla sus datos en el dropDown list de productos.
+                var query = from familia in context.IN05 select familia.IDFamilia;
+                dropFamilia.DataSource = query.ToList();
+                dropFamilia.DataBind();
             }
         }
 

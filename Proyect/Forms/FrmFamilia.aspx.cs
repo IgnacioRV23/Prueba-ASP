@@ -9,57 +9,49 @@ namespace VentaProductos.Proyect.Forms
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            getFamily();
+            getFamilia();
         }
 
-        private void getFamily()
+        private void getFamilia()
         {
             using (var context = new PruebaEntities1())
             {
                 var data = context.IN05.ToList();
-                gridFamily.DataSource = data;
-                gridFamily.DataBind();
+                gridFamilia.DataSource = data;
+                gridFamilia.DataBind();
             }
         }
 
         private void limpiarFamilia()
         {
-            txtFamiliaId.Text = "";
             txtNombreFamilia.Text = "";
             txtUsuarioIngreso.Text = "";
-            txtEstado.Text = "";
+            listEstado.SelectedIndex = 0;
         }
 
         protected void btnAgregarFamilia_Click(object sender, EventArgs e)
         {
             try
             {
-                var IDFamilia = txtFamiliaId.Text;
                 var nombreFamilia = txtNombreFamilia.Text;
                 var usuarioIngreso = txtUsuarioIngreso.Text;
-                var estado = txtEstado.Text;
+                var estado = int.Parse(listEstado.SelectedValue.ToString());
 
-                if (!IDFamilia.Equals("") || !nombreFamilia.Equals("")
-                    || !usuarioIngreso.Equals("") || !estado.Equals(""))
+
+                using (var context = new PruebaEntities1())
                 {
-                    var IDFamiliaP = int.Parse(IDFamilia);
-                    var estadoP = int.Parse(estado);
-                    using (var context = new PruebaEntities1())
-                    {
-                        //context.insertFamily(IDFamiliaP, nombreFamilia, usuarioIngreso, estadoP);
-                    }
-                    lblFamilia.Text = "Resultado: Producto agregado.";
-                    getFamily();
-                    limpiarFamilia();
+                    context.insertFamily(nombreFamilia, usuarioIngreso, estado);
                 }
-                else
-                {
-                    lblFamilia.Text = "Resultado: Error, campos vacios";
-                }
+
+                getFamilia();
+                limpiarFamilia();
+                lblError.Visible = false;
+                lblExito.Visible = true;
             }
             catch (Exception)
             {
-                lblFamilia.Text = "Resultado: Error de sistema";
+                lblError.Visible = true;
+                lblExito.Visible = false;
             }
         }
     }

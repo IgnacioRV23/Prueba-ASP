@@ -15,15 +15,6 @@ namespace VentaProductos.Proyect.Forms
     {
 
         /// <summary>
-        /// Control txtFamiliaId.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtFamiliaId;
-
-        /// <summary>
         /// Control txtNombreFamilia.
         /// </summary>
         /// <remarks>
@@ -42,39 +33,48 @@ namespace VentaProductos.Proyect.Forms
         protected global::System.Web.UI.WebControls.TextBox txtUsuarioIngreso;
 
         /// <summary>
-        /// Control txtEstado.
+        /// Control listEstado.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtEstado;
+        protected global::System.Web.UI.WebControls.DropDownList listEstado;
 
         /// <summary>
-        /// Control lblFamilia.
+        /// Control lblExito.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblFamilia;
+        protected global::System.Web.UI.WebControls.Label lblExito;
 
         /// <summary>
-        /// Control btnAgregarFamilia.
+        /// Control lblError.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnAgregarFamilia;
+        protected global::System.Web.UI.WebControls.Label lblError;
 
         /// <summary>
-        /// Control gridFamily.
+        /// Control btnAgregar.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.GridView gridFamily;
+        protected global::System.Web.UI.WebControls.Button btnAgregar;
+
+        /// <summary>
+        /// Control gridFamilia.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.GridView gridFamilia;
     }
 }

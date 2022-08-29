@@ -6,20 +6,31 @@
 
 <asp:Content ID="Content2" ContentPlaceHolderID="main" runat="server">
     <form runat="server">
-        <div class="form-container my-4">
-            <div class="form card p-3 bg-secondary">
-                <h4 class="text-center title">Formulario IN05</h4>
-                <asp:TextBox runat="server" ID="txtFamiliaId" placeholder="ID" CssClass="form-control my-2" />
-                <asp:TextBox runat="server" ID="txtNombreFamilia" placeholder="Nombre familia" CssClass="form-control my-2" />
-                <asp:TextBox runat="server" ID="txtUsuarioIngreso" placeholder="Usuario ingreso" CssClass="form-control my-2" />
-                <asp:TextBox runat="server" ID="txtEstado" placeholder="Estado" CssClass="form-control my-2" />
-                <asp:Label Text="Resultado:" runat="server" ID="lblFamilia" CssClass="lbl my-2 alert alert-warning p-1" />
-                <asp:Button Text="Agregar" runat="server" ID="btnAgregarFamilia" OnClick="btnAgregarFamilia_Click" CssClass="btn btn-dark" />
+        <div class="row justify-content-center w-100 mt-3">
+            <div class="col-3 mt-3">
+                <div class="p-4 rounded-3 bg-light shadow">
+                    <h5 class="text-center">Formulario IN05</h5>
+                    <asp:TextBox runat="server" ID="txtNombreFamilia" placeholder="Nombre familia" CssClass="form-control my-4" required="true" />
+                    <asp:TextBox runat="server" ID="txtUsuarioIngreso" placeholder="Usuario ingreso" CssClass="form-control my-4" required="true" />
+
+                    <asp:DropDownList runat="server" id="listEstado" placeholder="Estado" CssClass="text-secondary form-select my-4">
+                        <asp:ListItem Text="Estado" />                     
+                        <asp:ListItem Text="0" />
+                        <asp:ListItem Text="1" />
+                    </asp:DropDownList>
+
+                    <asp:Label Text="Resultado: Producto agregado." runat="server" ID="lblExito" class="d-block alert alert-success" Visible="false" />
+                    <asp:Label Text="Resultado: Error de sistema." runat="server" ID="lblError" class="d-block alert alert-danger" Visible="false" />
+
+                    <div class="d-grid mt-4">
+                        <asp:Button Text="Agregar" runat="server" ID="btnAgregar" OnClick="btnAgregarFamilia_Click" class="d-block btn btn-outline-primary" />
+                    </div>
+                </div>
             </div>
-            <div class="data grid2">
-                <h5>Lista de familia</h5>
-                <asp:GridView runat="server" ID="gridFamily" CellPadding="5" CellSpacing="10" EmptyDataText="Sin datos" CssClass="bg-white">
-                    <AlternatingRowStyle BackColor="#000000" ForeColor="White" />
+
+            <div class="col-9" style="height: 85vh; width: 70%; overflow: auto;">
+                <h5 class="text-center">Lista de productos</h5>
+                <asp:GridView runat="server" ID="gridFamilia" CssClass="table table-striped bg-light">
                 </asp:GridView>
             </div>
         </div>
